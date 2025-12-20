@@ -122,7 +122,6 @@ const defaultOptions: MobileReplayOptions = {
   enableViewRendererV2: true,
   enableFastViewRendering: false,
   screenshotStrategy: 'pixelCopy',
-  viewTypesIgnoredFromSubtreeTraversal: []
 };
 
 function mergeOptions(initOptions: Partial<MobileReplayOptions>): MobileReplayOptions {

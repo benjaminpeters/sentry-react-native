@@ -318,4 +318,32 @@ final class RNSentryReplayOptions: XCTestCase {
 
         XCTAssertEqual(actualOptions.sessionReplay.quality, SentryReplayOptions.SentryReplayQuality.medium)
     }
+
+    func testViewTypesIgnoredFromSubtreeTraversal() {
+        let optionsDict = ([
+            "dsn": "https://abc@def.ingest.sentry.io/1234567",
+            "replaysOnErrorSampleRate": 1.0,
+            "mobileReplayOptions": [ "viewTypesIgnoredFromSubtreeTraversal": ["RCTView"] ]
+        ] as NSDictionary).mutableCopy() as! NSMutableDictionary
+
+        RNSentryReplay.updateOptions(optionsDict)
+
+        let actualOptions = try! SentryOptionsInternal.initWithDict(optionsDict as! [String: Any])
+
+        XCTAssertEqual(actualOptions.sessionReplay.viewTypesIgnoredFromSubtreeTraversal, ["RCTView"])
+    }
+
+    func testViewTypesIgnoredFromSubtreeTraversalEmptyArray() {
+        let optionsDict = ([
+            "dsn": "https://abc@def.ingest.sentry.io/1234567",
+            "replaysOnErrorSampleRate": 1.0,
+            "mobileReplayOptions": [ "viewTypesIgnoredFromSubtreeTraversal": [] ]
+        ] as NSDictionary).mutableCopy() as! NSMutableDictionary
+
+        RNSentryReplay.updateOptions(optionsDict)
+
+        let actualOptions = try! SentryOptionsInternal.initWithDict(optionsDict as! [String: Any])
+
+        XCTAssertEqual(actualOptions.sessionReplay.viewTypesIgnoredFromSubtreeTraversal, [])
+    }
 }

@@ -100,7 +100,6 @@ Sentry.init({
         maskAllText: true,
         enableViewRendererV2: true,
         screenshotStrategy: 'canvas', // if you have strict PII requirements
-        viewTypesIgnoredFromSubtreeTraversal: ['RCTView'],
       }),
       Sentry.appStartIntegration({
         standalone: false,
