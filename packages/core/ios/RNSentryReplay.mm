@@ -37,7 +37,8 @@
         @"enableFastViewRendering" : replayOptions[@"enableFastViewRendering"] ?: [NSNull null],
         @"maskedViewClasses" : [RNSentryReplay getReplayRNRedactClasses:replayOptions],
         @"sdkInfo" :
-            @ { @"name" : REACT_NATIVE_SDK_NAME, @"version" : REACT_NATIVE_SDK_PACKAGE_VERSION }
+            @ { @"name" : REACT_NATIVE_SDK_NAME, @"version" : REACT_NATIVE_SDK_PACKAGE_VERSION },
+        @"viewTypesIgnoredFromSubtreeTraversal" : replayOptions[@"viewTypesIgnoredFromSubtreeTraversal"] ?: [NSNull null],
     }
                forKey:@"sessionReplay"];
     return (errorSampleRate != nil && [errorSampleRate doubleValue] > 0)

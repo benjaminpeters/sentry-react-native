@@ -104,6 +104,14 @@ export interface MobileReplayOptions {
    * @returns `false` to skip capturing a replay for this error, `true` or `undefined` to proceed with sampling
    */
   beforeErrorSampling?: (event: Event, hint: EventHint) => boolean;
+
+  /**
+   * List of view types to ignore from subtree traversal.
+   *
+   * @default []
+   * @platform ios
+   */
+  viewTypesIgnoredFromSubtreeTraversal?: string[];
 }
 
 const defaultOptions: MobileReplayOptions = {
@@ -114,6 +122,7 @@ const defaultOptions: MobileReplayOptions = {
   enableViewRendererV2: true,
   enableFastViewRendering: false,
   screenshotStrategy: 'pixelCopy',
+  viewTypesIgnoredFromSubtreeTraversal: []
 };
 
 function mergeOptions(initOptions: Partial<MobileReplayOptions>): MobileReplayOptions {
