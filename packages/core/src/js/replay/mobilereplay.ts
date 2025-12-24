@@ -106,12 +106,15 @@ export interface MobileReplayOptions {
   beforeErrorSampling?: (event: Event, hint: EventHint) => boolean;
 
   /**
-   * List of view types to ignore from subtree traversal.
+   * List of view classes to exclude from subtree traversal.
+   *
+   * This is used to exclude specific view classes from subtree traversal.
+   * This is useful if you have a view that is not needed in the replay and you want to exclude it from the subtree traversal.
    *
    * @default []
    * @platform ios
    */
-  viewTypesIgnoredFromSubtreeTraversal?: string[];
+  excludedViewClasses?: string[];
 }
 
 const defaultOptions: MobileReplayOptions = {
@@ -122,6 +125,7 @@ const defaultOptions: MobileReplayOptions = {
   enableViewRendererV2: true,
   enableFastViewRendering: false,
   screenshotStrategy: 'pixelCopy',
+  excludedViewClasses: []
 };
 
 function mergeOptions(initOptions: Partial<MobileReplayOptions>): MobileReplayOptions {
