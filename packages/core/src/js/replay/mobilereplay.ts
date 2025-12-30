@@ -109,12 +109,25 @@ export interface MobileReplayOptions {
    * List of view classes to exclude from subtree traversal.
    *
    * This is used to exclude specific view classes from subtree traversal.
-   * This is useful if you have a view that is not needed in the replay and you want to exclude it from the subtree traversal.
+   * This is useful if you have a view that is not needed in the replay or causes crashes by traversing problematic
+   * view hierarchies (e.g., views that activate internal CoreAnimation animations when their layers are accessed).
    *
    * @default []
    * @platform ios
    */
   excludedViewClasses?: string[];
+
+  /**
+   * List of view classes to include in subtree traversal.
+   *
+   * This is used to include specific view classes in subtree traversal.
+   * View types exactly matching these strings will be removed from the excluded set, allowing their subtrees
+   * to be traversed even if they would otherwise be excluded by default or via `excludedViewClasses`.
+   *
+   * @default []
+   * @platform ios
+   */
+  includedViewClasses?: string[];
 }
 
 const defaultOptions: MobileReplayOptions = {
