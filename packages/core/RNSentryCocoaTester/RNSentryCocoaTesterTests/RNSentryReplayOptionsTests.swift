@@ -323,7 +323,7 @@ final class RNSentryReplayOptions: XCTestCase {
         let optionsDict = ([
             "dsn": "https://abc@def.ingest.sentry.io/1234567",
             "replaysOnErrorSampleRate": 1.0,
-            "mobileReplayOptions": [ "viewTypesIgnoredFromSubtreeTraversal": ["RCTView"] ]
+            "mobileReplayOptions": [ "excludedViewClasses": ["RCTView"] ]
         ] as NSDictionary).mutableCopy() as! NSMutableDictionary
 
         RNSentryReplay.updateOptions(optionsDict)
@@ -337,7 +337,7 @@ final class RNSentryReplayOptions: XCTestCase {
         let optionsDict = ([
             "dsn": "https://abc@def.ingest.sentry.io/1234567",
             "replaysOnErrorSampleRate": 1.0,
-            "mobileReplayOptions": [ "viewTypesIgnoredFromSubtreeTraversal": [] ]
+            "mobileReplayOptions": [ "excludedViewClasses": [] ]
         ] as NSDictionary).mutableCopy() as! NSMutableDictionary
 
         RNSentryReplay.updateOptions(optionsDict)
