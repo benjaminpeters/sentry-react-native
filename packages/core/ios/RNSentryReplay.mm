@@ -39,6 +39,7 @@
         @"sdkInfo" :
             @ { @"name" : REACT_NATIVE_SDK_NAME, @"version" : REACT_NATIVE_SDK_PACKAGE_VERSION },
         @"excludedViewClasses" : replayOptions[@"excludedViewClasses"] ?: [NSNull null],
+        @"includedViewClasses" : replayOptions[@"includedViewClasses"] ?: [NSNull null],
     }
                forKey:@"sessionReplay"];
     return (errorSampleRate != nil && [errorSampleRate doubleValue] > 0)
