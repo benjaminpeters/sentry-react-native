@@ -319,7 +319,7 @@ final class RNSentryReplayOptions: XCTestCase {
         XCTAssertEqual(actualOptions.sessionReplay.quality, SentryReplayOptions.SentryReplayQuality.medium)
     }
 
-    func testViewTypesIgnoredFromSubtreeTraversal() {
+    func testExcludedViewClasses() {
         let optionsDict = ([
             "dsn": "https://abc@def.ingest.sentry.io/1234567",
             "replaysOnErrorSampleRate": 1.0,
@@ -330,10 +330,10 @@ final class RNSentryReplayOptions: XCTestCase {
 
         let actualOptions = try! SentryOptionsInternal.initWithDict(optionsDict as! [String: Any])
 
-        XCTAssertEqual(actualOptions.sessionReplay.viewTypesIgnoredFromSubtreeTraversal, ["RCTView"])
+        XCTAssertEqual(actualOptions.sessionReplay.excludedViewClasses, ["RCTView"])
     }
 
-    func testViewTypesIgnoredFromSubtreeTraversalEmptyArray() {
+    func testExcludedViewClassesEmptyArray() {
         let optionsDict = ([
             "dsn": "https://abc@def.ingest.sentry.io/1234567",
             "replaysOnErrorSampleRate": 1.0,
@@ -344,6 +344,48 @@ final class RNSentryReplayOptions: XCTestCase {
 
         let actualOptions = try! SentryOptionsInternal.initWithDict(optionsDict as! [String: Any])
 
-        XCTAssertEqual(actualOptions.sessionReplay.viewTypesIgnoredFromSubtreeTraversal, [])
+        XCTAssertEqual(actualOptions.sessionReplay.excludedViewClasses, [])
+    }
+
+    func testIncludedViewClasses() {
+        let optionsDict = ([
+            "dsn": "https://abc@def.ingest.sentry.io/1234567",
+            "replaysOnErrorSampleRate": 1.0,
+            "mobileReplayOptions": [ "includedViewClasses": ["RCTView"] ]
+        ] as NSDictionary).mutableCopy() as! NSMutableDictionary
+
+        RNSentryReplay.updateOptions(optionsDict)
+
+        let actualOptions = try! SentryOptionsInternal.initWithDict(optionsDict as! [String: Any])
+
+        XCTAssertEqual(actualOptions.sessionReplay.includedViewClasses, ["RCTView"])
+    }
+
+    func testIncludedViewClassesEmptyArray() {
+        let optionsDict = ([
+            "dsn": "https://abc@def.ingest.sentry.io/1234567",
+            "replaysOnErrorSampleRate": 1.0,
+            "mobileReplayOptions": [ "includedViewClasses": [] ]
+        ] as NSDictionary).mutableCopy() as! NSMutableDictionary
+
+        RNSentryReplay.updateOptions(optionsDict)
+
+        let actualOptions = try! SentryOptionsInternal.initWithDict(optionsDict as! [String: Any])
+
+        XCTAssertEqual(actualOptions.sessionReplay.includedViewClasses, [])
+    }
+
+    func testIncludedViewClassesNil() {
+        let optionsDict = ([
+            "dsn": "https://abc@def.ingest.sentry.io/1234567",
+            "replaysOnErrorSampleRate": 1.0,
+            "mobileReplayOptions": [ "includedViewClasses": nil ]
+        ] as NSDictionary).mutableCopy() as! NSMutableDictionary
+
+        RNSentryReplay.updateOptions(optionsDict)
+
+        let actualOptions = try! SentryOptionsInternal.initWithDict(optionsDict as! [String: Any])
+
+        XCTAssertEqual(actualOptions.sessionReplay.includedViewClasses, nil)
     }
 }
